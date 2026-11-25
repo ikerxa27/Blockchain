@@ -17,7 +17,7 @@ public class Main {
 
     static final int NUM_WORKERS = 4;
 
-    // Mensaje que un lector de salida deja en la cola. linea == null indica que el worker cerró su salida.
+    // Mensaje que un lector de salida deja en la cola.
     static class Resultado {
         final int worker;
         final long pid;
@@ -117,7 +117,7 @@ public class Main {
         try {
             String java = Paths.get(System.getProperty("java.home"), "bin", "java").toString();
             String classpath = System.getProperty("java.class.path");
-
+            //Lanza procesos
             for (int i = 0; i < NUM_WORKERS; i++) {
                 ProcessBuilder pb = new ProcessBuilder(java, "-cp", classpath, "Worker",
                         hashAnterior, datos, String.valueOf(DIFICULTAD),
@@ -192,7 +192,6 @@ public class Main {
             throw new IOException("ningún worker aportó una solución válida para el bloque " + numero);
 
         } finally {
-            //No deja ningun hijo vivo
             terminarWorkers(workers);
         }
     }
@@ -238,7 +237,7 @@ public class Main {
     }
 
     static void mostrarCadena(List<Bloque> cadena) {
-        System.out.println("=== CADENA FINAL ===");
+        System.out.println("CADENA FINAL");
         for (Bloque b : cadena) {
             System.out.println("Bloque " + b.getNumero() + " | datos: " + b.getDatos());
             System.out.println("  hash anterior: " + b.getHashAnterior());
